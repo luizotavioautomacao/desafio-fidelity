@@ -1,9 +1,9 @@
 from typing import List, Optional, Tuple, Dict, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import text, and_, or_
-from src.models.models import Pesquisa, PesquisaSPV, Cliente, Estado, Servico
-from src.interfaces.database_interface import IDatabaseService
-from src.services.logging_service import LoggingService
+from models.models import Pesquisa, PesquisaSPV, Cliente, Estado, Servico
+from interfaces.database_interface import IDatabaseService
+from services.logging_service import LoggingService
 from datetime import datetime
 import logging
 
