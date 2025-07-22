@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: spv_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: unless-stopped
+
+  # spv_app:
+  #   build: .
+  #   container_name: spv_app
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_URL}
+  #     EDGE_DRIVER_PATH: ${EDGE_DRIVER_PATH}
+  #     HEADLESS: ${HEADLESS}
+  #     MAX_EXECUTION_TIME: ${MAX_EXECUTION_TIME}
+  #   volumes:
+  #     - ./logs:/app/logs
+  #     # Descomente a linha abaixo se você tiver o msedgedriver localmente
+  #     # - ./edge_driver/msedgedriver:${EDGE_DRIVER_PATH}
+  #   depends_on:
+  #     - postgres
+  #   restart: unless-stopped
+  #   command: >
+  #     sh -c "
+  #       echo '🔍 Verificando WebDriver...' &&
+  #       /usr/local/bin/download_webdriver.sh &&
+  #       echo '🚀 Iniciando aplicação...' &&
+  #       python src/spv_automatico.py
+  #     "
+
+volumes:
+  postgres_data:
