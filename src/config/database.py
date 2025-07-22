@@ -5,34 +5,58 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import QueuePool
 
-# Carrega as variáveis do arquivo .env
+# Carrega variáveis do arquivo .env
 load_dotenv()
 
-# Configurações do banco de dados
-DATABASE_URL = os.getenv('DATABASE_URL')
+# Verifica todas as variáveis obrigatórias
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+DB_POOL_SIZE = os.getenv("DB_POOL_SIZE")
+DB_MAX_OVERFLOW = os.getenv("DB_MAX_OVERFLOW")
+DB_POOL_PRE_PING = os.getenv("DB_POOL_PRE_PING")
+DB_POOL_RECYCLE = os.getenv("DB_POOL_RECYCLE")
 
-if not DATABASE_URL:
-    raise ValueError("A variável de ambiente DATABASE_URL não foi definida.")
+required_vars = {
+    "DB_USER": DB_USER,
+    "DB_PASSWORD": DB_PASSWORD,
+    "DB_HOST": DB_HOST,
+    "DB_PORT": DB_PORT,
+    "DB_NAME": DB_NAME,
+    "DB_POOL_SIZE": DB_POOL_SIZE,
+    "DB_MAX_OVERFLOW": DB_MAX_OVERFLOW,
+    "DB_POOL_PRE_PING": DB_POOL_PRE_PING,
+    "DB_POOL_RECYCLE": DB_POOL_RECYCLE,
+}
 
-# Configuração do engine do SQLAlchemy
+missing_vars = [k for k, v in required_vars.items() if not v]
+if missing_vars:
+    raise ValueError(f"❌ Variáveis obrigatórias ausentes no .env: {', '.join(missing_vars)}")
+
+# Monta a URL de conexão
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# Criação do engine com parâmetros de performance
 engine = create_engine(
     DATABASE_URL,
     poolclass=QueuePool,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,
-    pool_recycle=3600,
-    echo=False  # Ative se quiser log de queries SQL
+    pool_size=int(DB_POOL_SIZE),
+    max_overflow=int(DB_MAX_OVERFLOW),
+    pool_pre_ping=DB_POOL_PRE_PING.lower() == "true",
+    pool_recycle=int(DB_POOL_RECYCLE),
+    echo=False
 )
 
-# Criação da sessão
+# Criação da fábrica de sessões
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Base para os modelos
 Base = declarative_base()
 
 def get_db():
-    """Função para obter uma sessão do banco de dados"""
+    """Fornece uma sessão do banco para uso em rotinas"""
     db = SessionLocal()
     try:
         yield db
@@ -40,5 +64,5 @@ def get_db():
         db.close()
 
 def init_db():
-    """Inicializa o banco de dados criando todas as tabelas"""
+    """Cria todas as tabelas no banco com base nos modelos declarados"""
     Base.metadata.create_all(bind=engine)
