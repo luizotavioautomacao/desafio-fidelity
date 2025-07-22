@@ -1,0 +1,17 @@
+
+include .env
+export $(shell sed 's/=.*//' .env)
+i:
+	@echo "📦 Criando virtualenv e instalando dependências..."
+	python3 -m venv venv
+	venv/bin/pip install --upgrade pip
+	venv/bin/pip install -r requirements.txt
+up:
+	docker compose up -d postgres
+down:
+	docker compose down -v
+db:
+	docker exec -it spv_postgres psql -U $(DB_USER) -d $(DB_NAME)
+load-schema:
+	docker exec -i spv_postgres psql -U $(DB_USER) -d $(DB_NAME) < storage/schema.sql
+
