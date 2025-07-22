@@ -18,3 +18,9 @@ seed:
 	docker exec -i spv_postgres psql -U $(DB_USER) -d $(DB_NAME) < scripts/seed.sql
 exec:
 	PYTHONPATH=. venv/bin/python src/spv_automatico.py
+db:
+	docker exec -it spv_postgres psql -U $(DB_USER) -d $(DB_NAME)
+test:
+	PYTHONPATH=src venv/bin/python -m pytest tests/ -v
+coverage:
+	PYTHONPATH=src venv/bin/python -m pytest tests/ -v --cov=src --cov-report=term-missing
