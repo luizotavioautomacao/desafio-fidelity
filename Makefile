@@ -14,4 +14,7 @@ db:
 	docker exec -it spv_postgres psql -U $(DB_USER) -d $(DB_NAME)
 load-schema:
 	docker exec -i spv_postgres psql -U $(DB_USER) -d $(DB_NAME) < storage/schema.sql
-
+seed:
+	docker exec -i spv_postgres psql -U $(DB_USER) -d $(DB_NAME) < scripts/seed.sql
+exec:
+	PYTHONPATH=. venv/bin/python src/spv_automatico.py
