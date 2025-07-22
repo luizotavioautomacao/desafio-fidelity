@@ -99,5 +99,3 @@ O banco está bem estruturado para OLTP, com boas práticas já aplicadas. As me
 
 # Features Futuras:
 Criação de uma arquitetura de dados analítica com pipelines de ingestão, transform, data warehouse e dashboard.
-
-
