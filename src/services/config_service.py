@@ -91,8 +91,8 @@ class ConfigService:
             delay_between_requests=get_required_float("DELAY_BETWEEN_REQUESTS"),
             max_retries=get_required_int("MAX_RETRIES"),
             batch_size=get_required_int("BATCH_SIZE"),
-            intervalo_espera=get_required_int("INTERVALO_ESPERA"),
-            max_tentativas=get_required_int("MAX_TENTATIVAS"),
+            intervalo_espera=get_required_int("WAITING_INTERVAL"),
+            max_tentativas=get_required_int("MAX_ATTEMPTS"),
             disable_scraping=get_required_bool("DISABLE_SCRAPING"),
         )
 
