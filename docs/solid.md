@@ -74,5 +74,3 @@ src/
 | spv_automatico.py   | SRP                          | Ponto de entrada/orquestração                        |
 
 ---
-
-Se quiser exemplos práticos de aplicação de SOLID em cada pasta, ou sugestões de organização de classes/interfaces, solicite detalhamento! 
