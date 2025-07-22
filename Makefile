@@ -24,3 +24,5 @@ test:
 	PYTHONPATH=src venv/bin/python -m pytest tests/ -v
 coverage:
 	PYTHONPATH=src venv/bin/python -m pytest tests/ -v --cov=src --cov-report=term-missing
+coverage-html:
+	PYTHONPATH=src venv/bin/python -m pytest tests/ --cov=src --cov-report=html

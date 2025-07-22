@@ -12,7 +12,7 @@ services:
       - "${DB_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./storage/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     restart: unless-stopped
 
   # spv_app:

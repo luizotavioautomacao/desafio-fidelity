@@ -1,4 +1,6 @@
 ## Detalhes do projeto:
+> 📄 **Documentação** da [arquitetura e overview das melhorias](./docs/architecture.md)
+
 ### Banco de Dados
 1. Entendimento do [problema proposto](https://colab.research.google.com/drive/1Lxh_83CTNgOcF8jY7abYLx3vxYOw1qgr?usp=sharing) e análise das [tabelas](./docs/tables.png)  
 2. Criação do [schema.sql](./storage/schema.sql)  
@@ -7,7 +9,7 @@
 7. Criação do [seed.sql](./scripts/seed.sql)
 
 ### SOLID
-4. Estrutura de [pastas](./src/) usando [SOLID](./docs/SOLID.md)
+4. Estrutura de [pastas](./src/) usando [SOLID](./docs/solid.md)
 
 ### Containers
 5. Criação Dockerfile, docker-compose, requirements.txt e Makefile
@@ -18,7 +20,7 @@
 > ⚠️ **Importante:** Preencha todos os valores obrigatórios seguindo .env.example. A aplicação verifica a existência de variáveis críticas e **não funcionará se alguma estiver ausente**.
 
 ### Testes
-8. [Testes Unitários](./tests/)
+8. [Testes Unitários](./tests/) e [documentação detalhada](./docs/tests.md)
 
 ---
 ## Como rodar localmente?
@@ -28,6 +30,7 @@
 - python3-pip
 - docker-compose
 - make
+- [Microsoft Edge WebDriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/)
 
 ### Comandos no terminal
 1. `make i`  
@@ -37,3 +40,8 @@
 5. `make exec`  
 6. `make test`  
 7. `make coverage`  
+
+#### Acessar Postgres
+8. `make db`
+9. `\dt`
+10. `SELECT * FROM clientes;`
