@@ -1,0 +1,9 @@
+Id;Prioridade;Pomodoro;Task
+0;10;20;"Criar estrutura do projeto com testes e exemplos"
+2;9;1;"Variáveis de ambiente do docker-compose";
+3;8;1;"Instalar edge e webdriver no ubuntu";
+
+1;8;"Adicionar uma interface de monitoramento (ex: Flask, Streamlit)";
+2;9;"Expor relatórios de scraping via HTTP";
+3;5;"Agendar a execução com cron ou Airflow";
+4;5;"Armazenar os logs de forma visual (ex: Logstash, Grafana)";

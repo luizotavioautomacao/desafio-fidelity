@@ -1,0 +1,39 @@
+# Configuração do Banco de Dados PostgreSQL
+DB_USER=postgres
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=spv_automatico
+DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+
+# Parâmetros obrigatórios do pool de conexões do SQLAlchemy
+DB_POOL_SIZE=10
+DB_MAX_OVERFLOW=20
+DB_POOL_PRE_PING=true
+DB_POOL_RECYCLE=3600
+
+# Configurações de Logging
+LOG_LEVEL=INFO
+LOG_FILE=spv_automatico.log
+LOG_FORMAT=%(asctime)s - %(name)s - %(levelname)s - %(message)s
+
+# Configurações do Web Scraper
+WEBSITE_TYPE=TJSP
+HEADLESS=true
+WEBDRIVER_TIMEOUT=30
+PAGE_LOAD_TIMEOUT=60
+MAX_RETRIES=3
+
+# Caminho para o Microsoft Edge WebDriver
+EDGE_DRIVER_PATH=/usr/local/bin/msedgedriver
+
+# Configurações do Sistema
+MAX_EXECUTION_TIME=600
+WAITING_INTERVAL=60
+MAX_ATTEMPTS=20
+
+# Configurações de Performance
+BATCH_SIZE=100
+DELAY_BETWEEN_REQUESTS=1
+DISABLE_SCRAPING=false
+
